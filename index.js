@@ -14,7 +14,7 @@ app.use(
     cors({
         origin: "https://frontend-mern-nu.vercel.app",
        methods: ["GET", "POST", "PUT", "DELETE"],
-        allowedheaders: ["Content-Type"],
+        allowedHeaders: ["Content-Type"],
     })
 );
 

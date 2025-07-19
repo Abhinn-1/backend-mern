@@ -10,13 +10,13 @@ app.use(express.json());
 
 app.use(cors());
 
-//app.use(
-//    cors({
-//        origin: "http://localhost:3000",
-//       methods: ["GET", "POST", "PUT", "DELETE"],
-//        allowedheaders: ["Content-Type"],
-//    })
-//);
+app.use(
+    cors({
+        origin: "https://frontend-mern-nu.vercel.app",
+       methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedheaders: ["Content-Type"],
+    })
+);
 
 app.get('/', (request, response) => {
     console.log(request)

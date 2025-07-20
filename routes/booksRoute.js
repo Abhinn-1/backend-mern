@@ -58,29 +58,34 @@ router.get('/:id', async (request, response) => {
 });
 
 router.put('/:id', async (request, response) => {
-    try {
-        if (
-            !request.body.title ||
-            !request.body.author ||
-            !request.body.publishYear
-        ) {
-            return response.status(400).send({
-                message: 'send all required fields: title, author, publishyear'
-            })
-        }
-        const {id} = request.params;
-        const result = await Book.findByIdAndUpdate(id, request.body);
+  try {
+    const { title, author, publishYear, isAvailable, returnDate } = request.body;
 
-        if (!result) {
-            return response.status(404).json({message: 'book not found'});
-        }
-        return response.status(200).send({message: 'book updated'});
-        
-    } catch (error) {
-                console.log(error.message);
-        response.status(500).send({message: error.message});
+    if (!title || !author || !publishYear) {
+      return response.status(400).send({
+        message: 'Send all required fields: title, author, publishYear',
+      });
     }
+
+    const { id } = request.params;
+
+    const result = await Book.findByIdAndUpdate(
+      id,
+      { title, author, publishYear, isAvailable, returnDate },
+      { new: true }
+    );
+
+    if (!result) {
+      return response.status(404).json({ message: 'Book not found' });
+    }
+
+    return response.status(200).send({ message: 'Book updated', data: result });
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
+  }
 });
+
 
 router.delete('/:id', async (request, response) => {
     try {

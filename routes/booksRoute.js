@@ -16,10 +16,13 @@ router.post('/', async (request, response) => {
             });
         }
         const newBook = {
-            title : request.body.title,
-            author : request.body.author,
-            publishYear : request.body.publishYear
+          title: request.body.title,
+          author: request.body.author,
+          publishYear: request.body.publishYear,
+          available: request.body.available ?? true,
+          returnDate: request.body.returnDate ?? null,
         };
+
         const book = await Book.create(newBook);
         return response.status(201).send(book);
     }

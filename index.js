@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: "bookyard-one.vercel.app",
+        origin: "https://bookyard-one.vercel.app",
        methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ["Content-Type"],
     })

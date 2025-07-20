@@ -17,7 +17,7 @@ router.post('/', async (request, response) => {
       title,
       author,
       publishYear,
-      available: isAvailable ?? true,
+      available: available ?? true,
       returnDate: returnDate ?? null,
     };
 

@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', async (request, response) => {
   try {
-    const { title, author, publishYear, isAvailable, returnDate } = request.body;
+    const { title, author, publishYear, available, returnDate } = request.body;
 
     if (!title || !author || !publishYear) {
       return response.status(400).send({
@@ -17,8 +17,8 @@ router.post('/', async (request, response) => {
       title,
       author,
       publishYear,
-      available: isAvailable ?? true,
-      returnDate: isAvailable ? null : returnDate || null,
+      available: available ?? true,
+      returnDate: available ? null : returnDate || null,
     };
 
     const book = await Book.create(newBook);
@@ -36,7 +36,7 @@ router.get('/', async (request, response) => {
 
         const mappedBooks = books.map((book) => ({
           ...book._doc,
-          isAvailable: book.available,
+          available: book.available,
         }));
 
 
@@ -56,7 +56,7 @@ router.get('/:id', async (request, response) => {
         const book = await Book.findById(id);
         return response.status(200).json({
           ...book._doc,
-          isAvailable: book.available,
+          available: book.available,
         });
     } catch (error) {
         console.log(error.message);
@@ -66,7 +66,7 @@ router.get('/:id', async (request, response) => {
 
 router.put('/:id', async (request, response) => {
   try {
-    const { title, author, publishYear, isAvailable, returnDate } = request.body;
+    const { title, author, publishYear, available, returnDate } = request.body;
 
     if (!title || !author || !publishYear) {
       return response.status(400).send({
@@ -78,8 +78,8 @@ router.put('/:id', async (request, response) => {
 
     const result = await Book.findByIdAndUpdate(
       id,
-      { title, author, publishYear, available: isAvailable ?? true,
-        returnDate: isAvailable ? null : returnDate || null, returnDate },
+      { title, author, publishYear, available: available ?? true,
+        returnDate: available ? null : returnDate || null, returnDate },
       { new: true }
     );
 

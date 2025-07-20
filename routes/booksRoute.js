@@ -34,12 +34,6 @@ router.get('/', async (request, response) => {
     try {
         const books = await Book.find({});
 
-        const mappedBooks = books.map((book) => ({
-          ...book._doc,
-          available: book.available,
-        }));
-
-
         return response.status(200).json({
             count : books.length,
             data : books,

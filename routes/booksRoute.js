@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/', async (request, response) => {
   try {
-    const { title, author, publishYear, isAvailable, returnDate } = request.body;
+    const { title, author, publishYear, Available, returnDate } = request.body;
 
     if (!title || !author || !publishYear) {
       return response.status(400).send({
@@ -17,7 +17,7 @@ router.post('/', async (request, response) => {
       title,
       author,
       publishYear,
-      isAvailable: isAvailable ?? true,
+      Available: isAvailable ?? true,
       returnDate: returnDate ?? null,
     };
 
@@ -57,7 +57,7 @@ router.get('/:id', async (request, response) => {
 
 router.put('/:id', async (request, response) => {
   try {
-    const { title, author, publishYear, isAvailable, returnDate } = request.body;
+    const { title, author, publishYear, Available, returnDate } = request.body;
 
     if (!title || !author || !publishYear) {
       return response.status(400).send({
@@ -69,7 +69,7 @@ router.put('/:id', async (request, response) => {
 
     const result = await Book.findByIdAndUpdate(
       id,
-      { title, author, publishYear, isAvailable, returnDate },
+      { title, author, publishYear, Available, returnDate },
       { new: true }
     );
 
